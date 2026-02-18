@@ -2,16 +2,16 @@
 # React 18 + Vite
 
 services:
-  # Static Site - Frontend
+  # Web Service (NO Static Site) - Para SPA routing
   - type: web
     name: factusapp-frontend
-    env: static
+    env: node
     plan: free
     region: oregon
 
     # Configuración de build
     buildCommand: npm install && npm run build
-    publishPath: dist
+    startCommand: npm run preview
 
     # Variables de entorno
     envVars:
@@ -19,23 +19,12 @@ services:
       - key: VITE_API_URL
         value: https://factusapp-backend-1.onrender.com/api
 
-    # Headers para enrutamiento correcto
-    headers:
-      - path: /*
-        name: X-Content-Type-Options
-        value: nosniff
-      - path: /*
-        name: X-Frame-Options
-        value: DENY
+      # Puerto para preview server
+      - key: PORT
+        value: 3000
 
-    # Reescribir todas las rutas a index.html (SPA)
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+    # Health check
+    healthCheckPath: /
 
-    # Auto-deploy desde GitHub
-    branch: main
-
-# Nota: Actualizar VITE_API_URL después de conocer la URL real del backend
-# en el dashboard de Render: Settings → Environment Variables
+# Nota: Web Service permite configuración avanzada de rutas
+# a diferencia de Static Site que tiene limitaciones

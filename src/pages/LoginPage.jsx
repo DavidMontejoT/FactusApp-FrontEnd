@@ -83,10 +83,11 @@ export default function LoginPage() {
                 setError('')
                 setLoading(true)
                 try {
-                  // Crear usuario demo automáticamente
+                  // Generar email único con timestamp
+                  const timestamp = Date.now()
                   const response = await authService.register({
                     name: 'Usuario Demo',
-                    email: 'demo@test.com',
+                    email: `demo${timestamp}@test.com`,
                     password: 'Demo123456'
                   })
                   await login(response, response.accessToken, response.refreshToken)

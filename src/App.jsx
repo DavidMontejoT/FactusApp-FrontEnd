@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthContext'
 import LoginPage from './pages/LoginPage'
 import DashboardPage from './pages/DashboardPage'
 import ClientsPage from './pages/ClientsPage'
+import ClientCreatePage from './pages/ClientCreatePage'
 import ProductsPage from './pages/ProductsPage'
 import ProductCreatePage from './pages/ProductCreatePage'
 import InvoicesPage from './pages/InvoicesPage'
@@ -50,7 +51,7 @@ function AppRoutes() {
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/clients" element={<ClientsPage />} />
-              <Route path="/clients/new" element={<div className="text-white">Crear Cliente</div>} />
+              <Route path="/clients/new" element={<ClientCreatePage />} />
               <Route path="/products" element={<ProductsPage />} />
               <Route path="/products/new" element={<ProductCreatePage />} />
               <Route path="/invoices" element={<InvoicesPage />} />

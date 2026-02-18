@@ -15,9 +15,9 @@ services:
 
     # Variables de entorno
     envVars:
-      # API Backend URL (se actualizará después del deploy del backend)
+      # API Backend URL (URL REAL del backend)
       - key: VITE_API_URL
-        value: https://factusapp-backend.onrender.com/api
+        value: https://factusapp-backend-1.onrender.com/api
 
     # Headers para enrutamiento correcto
     headers:

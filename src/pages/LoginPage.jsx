@@ -6,8 +6,8 @@ import { authService } from '../services/authService'
 export default function LoginPage() {
   const navigate = useNavigate()
   const { login } = useAuth()
-  const [email, setEmail] = useState('demo@test.com')
-  const [password, setPassword] = useState('Demo123456')
+  const [email, setEmail] = useState('test@test.com')
+  const [password, setPassword] = useState('Password123!')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -75,6 +75,34 @@ export default function LoginPage() {
           >
             {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
           </button>
+
+          <div className="text-center">
+            <button
+              type="button"
+              onClick={async () => {
+                setError('')
+                setLoading(true)
+                try {
+                  // Crear usuario demo automáticamente
+                  const response = await authService.register({
+                    name: 'Usuario Demo',
+                    email: 'demo@test.com',
+                    password: 'Demo123456'
+                  })
+                  await login(response, response.accessToken, response.refreshToken)
+                  navigate('/dashboard')
+                } catch (err) {
+                  setError(err.response?.data?.message || 'Error al registrar usuario')
+                } finally {
+                  setLoading(false)
+                }
+              }}
+              disabled={loading}
+              className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+            >
+              ¿No tienes cuenta? Crear cuenta de demo
+            </button>
+          </div>
         </form>
       </div>
     </div>

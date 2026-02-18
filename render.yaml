@@ -1,0 +1,41 @@
+# Configuración de Deploy en Render para FactusApp Frontend
+# React 18 + Vite
+
+services:
+  # Static Site - Frontend
+  - type: web
+    name: factusapp-frontend
+    env: static
+    plan: free
+    region: oregon
+
+    # Configuración de build
+    buildCommand: npm install && npm run build
+    publishPath: dist
+
+    # Variables de entorno
+    envVars:
+      # API Backend URL (se actualizará después del deploy del backend)
+      - key: VITE_API_URL
+        value: https://factusapp-backend.onrender.com/api
+
+    # Headers para enrutamiento correcto
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+
+    # Reescribir todas las rutas a index.html (SPA)
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+    # Auto-deploy desde GitHub
+    branch: main
+
+# Nota: Actualizar VITE_API_URL después de conocer la URL real del backend
+# en el dashboard de Render: Settings → Environment Variables
